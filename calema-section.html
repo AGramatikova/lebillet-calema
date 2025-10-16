@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calema | LeBillet</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #04153b;
+    color: white;
+    overflow-x: hidden;
+  }
+
+  #main-content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #main-content button {
+    background: #64d869;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  #main-content button:hover { background: #4ec556; }
+
+  #calema-section {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 85vh;
+    border-radius: 16px;
+    background: #04153b;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  #calema-section .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  #calema-section .blob1 {
+    width: 300px;
+    height: 400px;
+    background: #0b5cff;
+    top: 25%;
+    left: -5%;
+  }
+
+  #calema-section .blob2 {
+    width: 400px;
+    height: 400px;
+    background: #0099ff;
+    bottom: -10%;
+    right: -5%;
+  }
+
+  #calema-section *:not(.blob) {
+    position: relative;
+    z-index: 2;
+  }
+
+  .title-bar {
+    width: 80%;
+    height: 100px;
+    background: #dcdcdc;
+    margin: -23px auto 0 auto;
+    clip-path: polygon(0 0, 100% 0, 100% 22%, 60% 85%, 40% 85%, 0 22%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title-bar h2 {
+    color: #04153b;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 2;
+    transition: 0.3s;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px;
+    align-items: flex-start;
+  }
+
+  .ticket-info {
+    margin-top: 20px;
+    flex: 1;
+    min-width: 350px;
+  }
+
+  .ticket-box {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+  }
+
+  .ticket-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .quantity-select {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 7px 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    width: 60px;
+    cursor: pointer;
+  }
+
+  .promo-btn {
+    display: block;
+    margin-top: 20px;
+    background: #e0e0e0;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+
+  .promo-btn:hover { background: #c3c3c3; }
+
+  .coupon-section {
+    display: none;
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .coupon-section input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9rem;
+  }
+
+  .coupon-section button {
+    background: #a0b0c0;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: #333333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .coupon-section button:hover { background: #64d869; }
+
+  .cart-box {
+    background: transparent;
+    border-left: 1px solid rgba(255,255,255,0.3);
+    padding: 0 0 0 40px;
+    flex: 1;
+    min-width: 350px;
+  }
+
+  .cart-box h3 {
+    margin-bottom: 45px;
+    text-align: center;       
+    font-size: 1.4rem;          
+    font-weight: 550;        
+    letter-spacing: 2px;     
+   }
+
+
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .remove-btn {
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+    display: none;
+  }
+
+  .remove-btn:hover { color: #ff1a1a; }
+
+  .cart-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;
+  }
+
+  hr {
+    border: 0.5px solid rgba(255,255,255,0.2);
+    margin: 40px 0;
+  }
+
+  .costs p, .total p {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+
+  .total {
+    font-size: 1.2rem;
+    margin-top: 70px;
+  }
+
+  .continue-btn {
+    background: #4ec556;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 65%;
+    padding: 15px;
+    margin: 55px auto 0 auto;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    display: block;
+    text-align: center;
+  }
+
+  .continue-btn:hover { background: #62dd68; }
+
+  /*  Payment Section  */
+  .payment-form {
+    margin-top: 0;
+    flex: 1;
+    min-width: 350px;
+    display: none;
+    color: #fff;
+    padding: 40px 60px;
+  }
+
+  .payment-form label {
+    display: block;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+
+  .payment-form input, .payment-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  .payment-form p {
+    text-align: center;
+    opacity: 0.8;
+    font-size: 0.9rem;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .form-group {
+    flex: 1 1 100%;
+  }
+
+  .payment-form input,
+  .payment-form select {
+    margin-bottom: 10px;
+  }
+
+  .form-row.last-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .form-row.last-row .form-group {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+</style>
+</head>
+<body>
+
+  <div id="main-content">
+    <h2>Evento: Calema - Londres</h2>
+    <button onclick="openCalemaSection()">Comprar</button>
+  </div>
+
+  <section id="calema-section">
+    <div class="title-bar"><h2>CALEMA</h2></div>
+
+    <!-- Back Button -->
+    <button class="back-btn" id="backBtn">← Voltar</button>
+    
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    
+    <!-- Ticket Section -->
+    <div class="content">
+      <div class="ticket-info" id="checkout-area">
+        <div class="ticket-box">
+          <h3>STANDART</h3>
+          <div class="ticket-row">
+            <p>Individual <span style="opacity:0.7;">Lote 1</span></p>
+            <div class="price-row">
+              <span>£ 48,00</span>
+              <select id="ticketQty" class="quantity-select">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>          
+        </div>
+
+        <!-- Coupon Section -->
+        <button class="promo-btn" id="promoBtn">Código Promocional</button>
+        <div class="coupon-section" id="couponSection">
+          <input type="text" placeholder="coupom" id="couponInput">
+          <button id="applyCoupon">Aplicar</button>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="payment-form hidden" id="paymentForm">
+        <div class="form-row">
+          <div class="form-group"><label>Nome</label><input type="text" placeholder="Nome"></div>
+          <div class="form-group"><label>Apelido</label><input type="text" placeholder="Apelido"></div>
+          <div class="form-group"><label>E-mail</label><input type="email" placeholder="E-mail"></div>
+          <div class="form-group"><label>Confirmar e-mail</label><input type="email" placeholder="Email de confirmação"></div>
+          <div class="form-group"><label>Número do Telemóvel</label><input type="tel" placeholder="Número do Telemóvel"></div>
+          <div class="form-group"><label>Confirmar número do telemóvel</label><input type="tel" placeholder="Confirmar número do telemóvel"></div>
+          <div class="form-group text-center"><p>Os bilhetes serão enviados por e-mail e whatsapp.</p></div>
+        </div>
+        <div class="form-row last-row">
+          <div class="form-group"><label>País</label>
+            <select><option>Portugal</option><option>Espanha</option><option>Brasil</option><option>Reino Unido</option></select>
+          </div>
+          <div class="form-group"><label>Concelho</label><input type="text" placeholder="Concelho"></div>
+        </div>
+      </div>
+
+      <!-- Cart Section -->
+      <div class="cart-box">
+        <h3>CARRINHO DE COMPRAS</h3>
+        <div class="cart-item">
+          <div class="cart-header">
+            <p><strong>Calema</strong></p>
+            <button class="remove-btn" id="removeBtn">✕</button>
+          </div>
+          <div class="cart-line">
+            <span id="cartDetails">0x Standard Individual</span>
+            <span id="cartSubtotal">£ 0,00</span>
+          </div>
+          <small>Valor total dos bilhetes <em>IVA incluído</em></small>
+        </div>          
+        <hr>
+        <div class="costs">
+          <p>Custos de operação <span id="operCost">£ 0,00</span></p>
+          <p>IVA sobre custos <span id="vatCost">£ 0,00</span></p>
+        </div>
+        <div class="total">
+          <p><strong>TOTAL</strong> <span id="totalPrice">£ 0,00</span></p>
+        </div>
+        <button class="continue-btn" id="continueBtn">Continuar</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const calemaSection = document.getElementById("calema-section");
+    const backBtn = document.getElementById("backBtn");
+    const qtySelect = document.getElementById("ticketQty");
+    const removeBtn = document.getElementById("removeBtn");
+    const promoBtn = document.getElementById("promoBtn");
+    const couponSection = document.getElementById("couponSection");
+    const checkoutArea = document.getElementById("checkout-area");
+    const paymentForm = document.getElementById("paymentForm");
+    
+    const ticketPrice = 48.00, operCost = 2.88, vatCost = 0.66;
+    
+    function openCalemaSection() {
+      calemaSection.style.display = "block";
+    }
+    
+    // Back button
+    backBtn.onclick = () => {
+      // go back to ticket box
+      if (paymentForm.style.display === "block") {
+        paymentForm.style.display = "none";
+        checkoutArea.style.display = "block";
+      } 
+      // close the Calema section
+      else {
+        calemaSection.style.display = "none";
+      }
+    };
+    
+    qtySelect.addEventListener("change", () => {
+      const qty = parseInt(qtySelect.value);
+      updateCart(qty);
+    });
+    
+    function updateCart(qty) {
+      const subtotal = qty * ticketPrice;
+      const oper = qty > 0 ? operCost : 0;
+      const vat = qty > 0 ? vatCost : 0;
+      const total = subtotal + oper + vat;
+    
+      document.getElementById("cartSubtotal").textContent = `£ ${subtotal.toFixed(2)}`;
+      document.getElementById("operCost").textContent = `£ ${oper.toFixed(2)}`;
+      document.getElementById("vatCost").textContent = `£ ${vat.toFixed(2)}`;
+      document.getElementById("totalPrice").textContent = `£ ${total.toFixed(2)}`;
+      document.getElementById("cartDetails").textContent = `${qty}x Standard Individual`;
+    
+      removeBtn.style.display = qty > 0 ? "inline-block" : "none";
+    }
+    
+    removeBtn.onclick = () => {
+      qtySelect.value = "0";
+      updateCart(0);
+    };
+    
+    promoBtn.onclick = () => {
+      promoBtn.style.display = "none";
+      couponSection.style.display = "flex";
+    };
+    
+    document.getElementById("continueBtn").onclick = () => {
+      checkoutArea.style.display = "none";
+      paymentForm.style.display = "block";
+      paymentForm.style.opacity = "1";
+    };
+    </script>
+</body>
+</html>
