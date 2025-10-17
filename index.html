@@ -343,76 +343,94 @@
   .form-row.last-row .form-group {
     flex: 1 1 calc(50% - 10px);
   }
-
-  /* ✅ Mobile Responsiveness */
-  @media (max-width: 768px) {
-    #calema-section {
-      top: 0;
-      left: 0;
-      transform: none;
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      box-shadow: none;
-    }
-
-    .blob1, .blob2 { display: none; }
-
-    .content {
-      flex-direction: column;
-      padding: 20px;
-      gap: 30px; /* More space between sections */
-    }
-
-    .ticket-info {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.25); /* Divider line */
-      padding-bottom: 25px;
-      margin-bottom: 25px;
-    }
-
-    .ticket-info, .cart-box, .payment-form {
-      min-width: 100%;
-      border: none;
-      padding: 0;
-    }
-
-    .back-btn {
-      top: 10px;
-      left: 10px;
-      padding: 8px 16px;
-    }
-
-    .title-bar {
-      width: 100%;
-      height: 85px;
-      background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
-      clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
-      border-radius: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .title-bar h2 {
-      font-size: 1.5rem;
-      color: #04153b;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    .continue-btn, .promo-btn {
-      width: 100%;
-      font-size: 1rem;
-      padding: 14px;
-      margin-bottom: 30px;
-    }
-
-    .cart-box {
-      padding: 0;
-      text-align: center;
-      border: none;
-    }
+/* ✅ Mobile Responsiveness */
+@media (max-width: 768px) {
+  #calema-section {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
   }
+
+  .blob1, .blob2 { display: none; }
+
+  .content {
+    flex-direction: column;
+    padding: 20px;
+    gap: 40px; /* slightly more space between sections */
+  }
+
+  .ticket-info {
+    position: relative;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  /* ✨ Stylish visible divider line */
+  .ticket-info::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.4) 25%,
+      rgba(255,255,255,0.6) 50%,
+      rgba(255,255,255,0.4) 75%,
+      rgba(255,255,255,0) 100%
+    );
+  }
+
+  .ticket-info, .cart-box, .payment-form {
+    min-width: 100%;
+    border: none;
+    padding: 0;
+  }
+
+  .back-btn {
+    top: 10px;
+    left: 10px;
+    padding: 8px 16px;
+  }
+
+  .title-bar {
+    width: 100%;
+    height: 85px;
+    background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title-bar h2 {
+    font-size: 1.5rem;
+    color: #04153b;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .continue-btn, .promo-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 14px;
+    margin-bottom: 30px;
+  }
+
+  .cart-box {
+    padding: 0;
+    text-align: center;
+    border: none;
+  }
+}
+
 </style>
 </head>
 <body>
