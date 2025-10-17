@@ -215,8 +215,7 @@
     font-size: 1.4rem;          
     font-weight: 550;        
     letter-spacing: 2px;     
-   }
-
+  }
 
   .cart-header {
     display: flex;
@@ -336,6 +335,69 @@
     flex: 1 1 calc(50% - 10px);
   }
 
+  /* ----------------------------- */
+  /* 📱 Mobile optimization */
+  /* ----------------------------- */
+  @media (max-width: 768px) {
+
+    #calema-section {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      left: 0;
+      top: 0;
+      transform: none;
+    }
+
+    .content {
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .ticket-info, .cart-box, .payment-form {
+      min-width: 100%;
+      border: none;
+      padding: 0;
+    }
+
+    .back-btn {
+      top: 10px;
+      left: 10px;
+      padding: 8px 16px;
+    }
+
+    .title-bar {
+      width: 100%;
+      clip-path: none;
+      border-radius: 0;
+      height: 70px;
+    }
+
+    .title-bar h2 {
+      font-size: 1.4rem;
+    }
+
+    body, input, select, button {
+      font-size: 1rem;
+    }
+
+    .continue-btn, .promo-btn {
+      width: 100%;
+      font-size: 1rem;
+      padding: 14px;
+    }
+
+    .cart-box {
+      padding: 0;
+      text-align: center;
+      border: none;
+    }
+
+    body, html {
+      overflow-x: hidden;
+    }
+  }
 </style>
 </head>
 <body>
@@ -348,14 +410,11 @@
   <section id="calema-section">
     <div class="title-bar"><h2>CALEMA</h2></div>
 
-    <!-- Back Button -->
     <button class="back-btn" id="backBtn">← Voltar</button>
     
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
 
-    
-    <!-- Ticket Section -->
     <div class="content">
       <div class="ticket-info" id="checkout-area">
         <div class="ticket-box">
@@ -381,7 +440,6 @@
           </div>          
         </div>
 
-        <!-- Coupon Section -->
         <button class="promo-btn" id="promoBtn">Código Promocional</button>
         <div class="coupon-section" id="couponSection">
           <input type="text" placeholder="coupom" id="couponInput">
@@ -389,7 +447,6 @@
         </div>
       </div>
 
-      <!-- Payment Section -->
       <div class="payment-form hidden" id="paymentForm">
         <div class="form-row">
           <div class="form-group"><label>Nome</label><input type="text" placeholder="Nome"></div>
@@ -408,7 +465,6 @@
         </div>
       </div>
 
-      <!-- Cart Section -->
       <div class="cart-box">
         <h3>CARRINHO DE COMPRAS</h3>
         <div class="cart-item">
@@ -435,70 +491,66 @@
     </div>
   </section>
 
-  <script>
-    const calemaSection = document.getElementById("calema-section");
-    const backBtn = document.getElementById("backBtn");
-    const qtySelect = document.getElementById("ticketQty");
-    const removeBtn = document.getElementById("removeBtn");
-    const promoBtn = document.getElementById("promoBtn");
-    const couponSection = document.getElementById("couponSection");
-    const checkoutArea = document.getElementById("checkout-area");
-    const paymentForm = document.getElementById("paymentForm");
-    
-    const ticketPrice = 48.00, operCost = 2.88, vatCost = 0.66;
-    
-    function openCalemaSection() {
-      calemaSection.style.display = "block";
-    }
-    
-    // Back button
-    backBtn.onclick = () => {
-      // go back to ticket box
-      if (paymentForm.style.display === "block") {
-        paymentForm.style.display = "none";
-        checkoutArea.style.display = "block";
-      } 
-      // close the Calema section
-      else {
-        calemaSection.style.display = "none";
-      }
-    };
-    
-    qtySelect.addEventListener("change", () => {
-      const qty = parseInt(qtySelect.value);
-      updateCart(qty);
-    });
-    
-    function updateCart(qty) {
-      const subtotal = qty * ticketPrice;
-      const oper = qty > 0 ? operCost : 0;
-      const vat = qty > 0 ? vatCost : 0;
-      const total = subtotal + oper + vat;
-    
-      document.getElementById("cartSubtotal").textContent = `£ ${subtotal.toFixed(2)}`;
-      document.getElementById("operCost").textContent = `£ ${oper.toFixed(2)}`;
-      document.getElementById("vatCost").textContent = `£ ${vat.toFixed(2)}`;
-      document.getElementById("totalPrice").textContent = `£ ${total.toFixed(2)}`;
-      document.getElementById("cartDetails").textContent = `${qty}x Standard Individual`;
-    
-      removeBtn.style.display = qty > 0 ? "inline-block" : "none";
-    }
-    
-    removeBtn.onclick = () => {
-      qtySelect.value = "0";
-      updateCart(0);
-    };
-    
-    promoBtn.onclick = () => {
-      promoBtn.style.display = "none";
-      couponSection.style.display = "flex";
-    };
-    
-    document.getElementById("continueBtn").onclick = () => {
-      checkoutArea.style.display = "none";
-      paymentForm.style.display = "block";
-      paymentForm.style.opacity = "1";
-    };
-    </script>
+<script>
+const calemaSection = document.getElementById("calema-section");
+const backBtn = document.getElementById("backBtn");
+const qtySelect = document.getElementById("ticketQty");
+const removeBtn = document.getElementById("removeBtn");
+const promoBtn = document.getElementById("promoBtn");
+const couponSection = document.getElementById("couponSection");
+const checkoutArea = document.getElementById("checkout-area");
+const paymentForm = document.getElementById("paymentForm");
+
+const ticketPrice = 48.00, operCost = 2.88, vatCost = 0.66;
+
+function openCalemaSection() {
+  calemaSection.style.display = "block";
+}
+
+backBtn.onclick = () => {
+  if (paymentForm.style.display === "block") {
+    paymentForm.style.display = "none";
+    checkoutArea.style.display = "block";
+  } else {
+    calemaSection.style.display = "none";
+  }
+};
+
+qtySelect.addEventListener("change", () => {
+  const qty = parseInt(qtySelect.value);
+  updateCart(qty);
+});
+
+function updateCart(qty) {
+  const subtotal = qty * ticketPrice;
+  const oper = qty > 0 ? operCost : 0;
+  const vat = qty > 0 ? vatCost : 0;
+  const total = subtotal + oper + vat;
+
+  document.getElementById("cartSubtotal").textContent = `£ ${subtotal.toFixed(2)}`;
+  document.getElementById("operCost").textContent = `£ ${oper.toFixed(2)}`;
+  document.getElementById("vatCost").textContent = `£ ${vat.toFixed(2)}`;
+  document.getElementById("totalPrice").textContent = `£ ${total.toFixed(2)}`;
+  document.getElementById("cartDetails").textContent = `${qty}x Standard Individual`;
+
+  removeBtn.style.display = qty > 0 ? "inline-block" : "none";
+}
+
+removeBtn.onclick = () => {
+  qtySelect.value = "0";
+  updateCart(0);
+};
+
+promoBtn.onclick = () => {
+  promoBtn.style.display = "none";
+  couponSection.style.display = "flex";
+};
+
+document.getElementById("continueBtn").onclick = () => {
+  checkoutArea.style.display = "none";
+  paymentForm.style.display = "block";
+  paymentForm.style.opacity = "1";
+};
+</script>
 </body>
 </html>
