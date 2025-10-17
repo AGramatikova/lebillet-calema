@@ -110,6 +110,7 @@
     z-index: 2;
     transition: 0.3s;
   }
+
   .back-btn:hover { background: rgba(255,255,255,0.2); }
 
   .content {
@@ -336,17 +337,26 @@
   }
 
   /* ----------------------------- */
-  /* 📱 Mobile optimization */
+  /* 📱 Mobile optimization (fixed scroll) */
   /* ----------------------------- */
   @media (max-width: 768px) {
 
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto; /* allows full scroll */
+    }
+
     #calema-section {
+      position: fixed;
       width: 100%;
-      height: auto;
-      border-radius: 0;
-      left: 0;
+      height: 100%;
       top: 0;
+      left: 0;
       transform: none;
+      border-radius: 0;
+      overflow-y: scroll; /* ensures scrolling inside */
+      -webkit-overflow-scrolling: touch; /* smooth for iOS */
     }
 
     .content {
@@ -386,16 +396,13 @@
       width: 100%;
       font-size: 1rem;
       padding: 14px;
+      margin-bottom: 30px; /* keeps space at bottom */
     }
 
     .cart-box {
       padding: 0;
       text-align: center;
       border: none;
-    }
-
-    body, html {
-      overflow-x: hidden;
     }
   }
 </style>
@@ -409,7 +416,6 @@
 
   <section id="calema-section">
     <div class="title-bar"><h2>CALEMA</h2></div>
-
     <button class="back-btn" id="backBtn">← Voltar</button>
     
     <div class="blob blob1"></div>
