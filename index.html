@@ -367,18 +367,17 @@
 
   /* 🌟 Sticky Title Bar + Back Button */
   .title-bar {
-    position: sticky;   /* 👈 makes it stay visible */
-    top: 0;             /* stick to top of screen */
-    z-index: 100;       /* keep it above other elements */
+    position: sticky;        /* ✅ truly sticky inside scroll container */
+    top: 0;
+    z-index: 100;
     width: 100%;
     height: 85px;
     background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
     clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
-    border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 50px; /* space after title area */
+    margin-bottom: 0;
   }
 
   .title-bar h2 {
@@ -389,8 +388,8 @@
   }
 
   .back-btn {
-    position: fixed; /* 👈 stays visible while scrolling */
-    top: 15px;
+    position: sticky;         /* ✅ make button scroll with title */
+    top: 15px;                /* aligns inside sticky bar */
     left: 15px;
     padding: 8px 16px;
     background: rgba(255,255,255,0.1);
@@ -398,7 +397,7 @@
     border-radius: 8px;
     color: white;
     cursor: pointer;
-    z-index: 150; /* higher than title */
+    z-index: 150;
     transition: 0.3s;
   }
 
@@ -407,19 +406,19 @@
   /* 🎟 Ticket Section */
   .ticket-info {
     position: relative;
-    margin-top: 30px; /* extra spacing under header */
-    margin-bottom: 80px;
+    margin-top: 60px; /* 👈 add space before ticket section (not glued to header) */
+    margin-bottom: 70px;
   }
 
   .ticket-box {
-    margin-bottom: 35px; /* space between ticket box and promo */
+    margin-bottom: 45px; /* 👈 more space between ticket and promo */
   }
 
   .ticket-info::after {
     content: "";
     display: block;
-    height: 2px; /* thicker line */
-    margin: 100px 0 40px 0; /* ⬆ extra spacing above line */
+    height: 2px;
+    margin: 80px 0 25px 0; /* ⬆ good space above, smaller after */
     background: linear-gradient(
       90deg,
       rgba(255,255,255,0) 0%,
@@ -433,15 +432,15 @@
   /* 💳 Payment Section */
   .payment-form {
     position: relative;
-    margin-top: 80px; /* extra space below title/back */
-    margin-bottom: 80px;
+    margin-top: 60px;
+    margin-bottom: 70px;
   }
 
   .payment-form::after {
     content: "";
     display: block;
-    height: 2px; /* thicker line */
-    margin: 100px 0 40px 0; /* more space above line */
+    height: 2px;
+    margin: 80px 0 25px 0; /* less space after line */
     background: linear-gradient(
       90deg,
       rgba(255,255,255,0) 0%,
