@@ -15,10 +15,10 @@
   html, body {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden !important; /* ✅ force no horizontal scroll */
-    overscroll-behavior-x: none;   /* ✅ block side bounce gestures */
+    overflow-x: hidden !important; /* ✅ no horizontal scroll */
+    overscroll-behavior-x: none;   /* ✅ block side bounce */
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;           /* ✅ allow only vertical swipe */
+    touch-action: pan-y;
     background-color: #04153b;
     color: white;
     font-family: 'Poppins', sans-serif;
@@ -121,7 +121,6 @@
     z-index: 2;
     transition: 0.3s;
   }
-
   .back-btn:hover { background: rgba(255,255,255,0.2); }
 
   .content {
@@ -223,11 +222,11 @@
 
   .cart-box h3 {
     margin-bottom: 45px;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 550;
-    letter-spacing: 2px;
-  }
+    text-align: center;       
+    font-size: 1.4rem;          
+    font-weight: 550;        
+    letter-spacing: 2px;     
+   }
 
   .cart-header {
     display: flex;
@@ -290,7 +289,7 @@
 
   .continue-btn:hover { background: #62dd68; }
 
-  /* Payment Section */
+  /*  Payment Section  */
   .payment-form {
     margin-top: 0;
     flex: 1;
@@ -342,11 +341,12 @@
     flex: 1 1 calc(50% - 10px);
   }
 
+  /* ----------------------------- */
   /* 📱 Mobile optimization */
+  /* ----------------------------- */
   @media (max-width: 768px) {
-    .blob1, .blob2 {
-      display: none;
-    }
+
+    .blob1, .blob2 { display: none; }
 
     .content {
       flex-direction: column;
@@ -366,15 +366,23 @@
       padding: 8px 16px;
     }
 
+    /* ✅ FIXED title-bar shape on mobile */
     .title-bar {
       width: 100%;
-      clip-path: none;
+      height: 80px;
+      background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
       border-radius: 0;
-      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .title-bar h2 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      color: #04153b;
+      font-weight: 700;
+      letter-spacing: 2px;
     }
 
     .continue-btn, .promo-btn {
@@ -394,93 +402,93 @@
 </head>
 <body>
 
-<div id="main-content">
-  <h2>Evento: Calema - Londres</h2>
-  <button onclick="openCalemaSection()">Comprar</button>
-</div>
-
-<section id="calema-section">
-  <div class="title-bar"><h2>CALEMA</h2></div>
-  <button class="back-btn" id="backBtn">← Voltar</button>
-
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
-
-  <div class="content">
-    <div class="ticket-info" id="checkout-area">
-      <div class="ticket-box">
-        <h3>STANDART</h3>
-        <div class="ticket-row">
-          <p>Individual <span style="opacity:0.7;">Lote 1</span></p>
-          <div class="price-row">
-            <span>£ 48,00</span>
-            <select id="ticketQty" class="quantity-select">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
-        </div>          
-      </div>
-
-      <button class="promo-btn" id="promoBtn">Código Promocional</button>
-      <div class="coupon-section" id="couponSection">
-        <input type="text" placeholder="coupom" id="couponInput">
-        <button id="applyCoupon">Aplicar</button>
-      </div>
-    </div>
-
-    <div class="payment-form hidden" id="paymentForm">
-      <div class="form-row">
-        <div class="form-group"><label>Nome</label><input type="text" placeholder="Nome"></div>
-        <div class="form-group"><label>Apelido</label><input type="text" placeholder="Apelido"></div>
-        <div class="form-group"><label>E-mail</label><input type="email" placeholder="E-mail"></div>
-        <div class="form-group"><label>Confirmar e-mail</label><input type="email" placeholder="Email de confirmação"></div>
-        <div class="form-group"><label>Número do Telemóvel</label><input type="tel" placeholder="Número do Telemóvel"></div>
-        <div class="form-group"><label>Confirmar número do telemóvel</label><input type="tel" placeholder="Confirmar número do telemóvel"></div>
-        <div class="form-group text-center"><p>Os bilhetes serão enviados por e-mail e whatsapp.</p></div>
-      </div>
-      <div class="form-row last-row">
-        <div class="form-group"><label>País</label>
-          <select><option>Portugal</option><option>Espanha</option><option>Brasil</option><option>Reino Unido</option></select>
-        </div>
-        <div class="form-group"><label>Concelho</label><input type="text" placeholder="Concelho"></div>
-      </div>
-    </div>
-
-    <div class="cart-box">
-      <h3>CARRINHO DE COMPRAS</h3>
-      <div class="cart-item">
-        <div class="cart-header">
-          <p><strong>Calema</strong></p>
-          <button class="remove-btn" id="removeBtn">✕</button>
-        </div>
-        <div class="cart-line">
-          <span id="cartDetails">0x Standard Individual</span>
-          <span id="cartSubtotal">£ 0,00</span>
-        </div>
-        <small>Valor total dos bilhetes <em>IVA incluído</em></small>
-      </div>          
-      <hr>
-      <div class="costs">
-        <p>Custos de operação <span id="operCost">£ 0,00</span></p>
-        <p>IVA sobre custos <span id="vatCost">£ 0,00</span></p>
-      </div>
-      <div class="total">
-        <p><strong>TOTAL</strong> <span id="totalPrice">£ 0,00</span></p>
-      </div>
-      <button class="continue-btn" id="continueBtn">Continuar</button>
-    </div>
+  <div id="main-content">
+    <h2>Evento: Calema - Londres</h2>
+    <button onclick="openCalemaSection()">Comprar</button>
   </div>
-</section>
+
+  <section id="calema-section">
+    <div class="title-bar"><h2>CALEMA</h2></div>
+    <button class="back-btn" id="backBtn">← Voltar</button>
+    
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <div class="content">
+      <div class="ticket-info" id="checkout-area">
+        <div class="ticket-box">
+          <h3>STANDART</h3>
+          <div class="ticket-row">
+            <p>Individual <span style="opacity:0.7;">Lote 1</span></p>
+            <div class="price-row">
+              <span>£ 48,00</span>
+              <select id="ticketQty" class="quantity-select">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>          
+        </div>
+
+        <button class="promo-btn" id="promoBtn">Código Promocional</button>
+        <div class="coupon-section" id="couponSection">
+          <input type="text" placeholder="coupom" id="couponInput">
+          <button id="applyCoupon">Aplicar</button>
+        </div>
+      </div>
+
+      <div class="payment-form hidden" id="paymentForm">
+        <div class="form-row">
+          <div class="form-group"><label>Nome</label><input type="text" placeholder="Nome"></div>
+          <div class="form-group"><label>Apelido</label><input type="text" placeholder="Apelido"></div>
+          <div class="form-group"><label>E-mail</label><input type="email" placeholder="E-mail"></div>
+          <div class="form-group"><label>Confirmar e-mail</label><input type="email" placeholder="Email de confirmação"></div>
+          <div class="form-group"><label>Número do Telemóvel</label><input type="tel" placeholder="Número do Telemóvel"></div>
+          <div class="form-group"><label>Confirmar número do telemóvel</label><input type="tel" placeholder="Confirmar número do telemóvel"></div>
+          <div class="form-group text-center"><p>Os bilhetes serão enviados por e-mail e whatsapp.</p></div>
+        </div>
+        <div class="form-row last-row">
+          <div class="form-group"><label>País</label>
+            <select><option>Portugal</option><option>Espanha</option><option>Brasil</option><option>Reino Unido</option></select>
+          </div>
+          <div class="form-group"><label>Concelho</label><input type="text" placeholder="Concelho"></div>
+        </div>
+      </div>
+
+      <div class="cart-box">
+        <h3>CARRINHO DE COMPRAS</h3>
+        <div class="cart-item">
+          <div class="cart-header">
+            <p><strong>Calema</strong></p>
+            <button class="remove-btn" id="removeBtn">✕</button>
+          </div>
+          <div class="cart-line">
+            <span id="cartDetails">0x Standard Individual</span>
+            <span id="cartSubtotal">£ 0,00</span>
+          </div>
+          <small>Valor total dos bilhetes <em>IVA incluído</em></small>
+        </div>          
+        <hr>
+        <div class="costs">
+          <p>Custos de operação <span id="operCost">£ 0,00</span></p>
+          <p>IVA sobre custos <span id="vatCost">£ 0,00</span></p>
+        </div>
+        <div class="total">
+          <p><strong>TOTAL</strong> <span id="totalPrice">£ 0,00</span></p>
+        </div>
+        <button class="continue-btn" id="continueBtn">Continuar</button>
+      </div>
+    </div>
+  </section>
 
 <script>
 const calemaSection = document.getElementById("calema-section");
