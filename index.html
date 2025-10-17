@@ -365,11 +365,8 @@
     gap: 60px;
   }
 
-  /* 🌟 Sticky Title Bar + Back Button */
+  /* 🌟 Title Bar + Back Button (non-sticky) */
   .title-bar {
-    position: sticky;        /* ✅ truly sticky inside scroll container */
-    top: 0;
-    z-index: 100;
     width: 100%;
     height: 85px;
     background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
@@ -388,8 +385,8 @@
   }
 
   .back-btn {
-    position: sticky;         /* ✅ make button scroll with title */
-    top: 15px;                /* aligns inside sticky bar */
+    position: absolute;
+    top: 15px;
     left: 15px;
     padding: 8px 16px;
     background: rgba(255,255,255,0.1);
@@ -406,19 +403,19 @@
   /* 🎟 Ticket Section */
   .ticket-info {
     position: relative;
-    margin-top: 60px; /* 👈 add space before ticket section (not glued to header) */
+    margin-top: 60px; /* space before ticket section */
     margin-bottom: 70px;
   }
 
   .ticket-box {
-    margin-bottom: 45px; /* 👈 more space between ticket and promo */
+    margin-bottom: 45px; /* more space between ticket and promo */
   }
 
   .ticket-info::after {
     content: "";
     display: block;
     height: 2px;
-    margin: 80px 0 25px 0; /* ⬆ good space above, smaller after */
+    margin: 80px 0 25px 0; /* space above and below line */
     background: linear-gradient(
       90deg,
       rgba(255,255,255,0) 0%,
@@ -473,6 +470,7 @@
     padding: 0;
   }
 }
+
 
 </style>
 </head>
