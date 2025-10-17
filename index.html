@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Calema | LeBillet</title>
 <style>
-  /* Global Reset */
+  /* Reset */
   * {
     box-sizing: border-box;
     margin: 0;
@@ -15,8 +15,8 @@
   html, body {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden !important; /* ✅ no horizontal scroll */
-    overscroll-behavior-x: none;   /* ✅ block side bounce */
+    overflow-x: hidden !important; /* no horizontal scroll */
+    overscroll-behavior-x: none;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
     background-color: #04153b;
@@ -95,6 +95,7 @@
     background: #dcdcdc;
     margin: -23px auto 0 auto;
     clip-path: polygon(0 0, 100% 0, 100% 22%, 60% 85%, 40% 85%, 0 22%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 22%, 60% 85%, 40% 85%, 0 22%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,6 +122,7 @@
     z-index: 2;
     transition: 0.3s;
   }
+
   .back-btn:hover { background: rgba(255,255,255,0.2); }
 
   .content {
@@ -222,11 +224,11 @@
 
   .cart-box h3 {
     margin-bottom: 45px;
-    text-align: center;       
-    font-size: 1.4rem;          
-    font-weight: 550;        
-    letter-spacing: 2px;     
-   }
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 550;
+    letter-spacing: 2px;
+  }
 
   .cart-header {
     display: flex;
@@ -289,7 +291,7 @@
 
   .continue-btn:hover { background: #62dd68; }
 
-  /*  Payment Section  */
+  /* Payment Section */
   .payment-form {
     margin-top: 0;
     flex: 1;
@@ -341,11 +343,8 @@
     flex: 1 1 calc(50% - 10px);
   }
 
-  /* ----------------------------- */
-  /* 📱 Mobile optimization */
-  /* ----------------------------- */
+  /* Mobile */
   @media (max-width: 768px) {
-
     .blob1, .blob2 { display: none; }
 
     .content {
@@ -366,12 +365,13 @@
       padding: 8px 16px;
     }
 
-    /* ✅ FIXED title-bar shape on mobile */
+    /* ✅ Fixed title-bar shape for Safari (mobile) */
     .title-bar {
       width: 100%;
-      height: 80px;
+      height: 85px;
       background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
       clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
       border-radius: 0;
       display: flex;
       justify-content: center;
