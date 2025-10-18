@@ -358,7 +358,31 @@
     overflow-x: hidden;
   }
 
-  .blob1, .blob2 { display: none; }
+  /* 💠 Blobs are back! */
+  .blob1, .blob2 {
+    display: block; /* ✅ visible again */
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.45;
+    z-index: 0;
+  }
+
+  .blob1 {
+    width: 220px;
+    height: 220px;
+    background: #0b5cff;
+    top: 15%;
+    left: -10%;
+  }
+
+  .blob2 {
+    width: 260px;
+    height: 260px;
+    background: #0099ff;
+    bottom: -8%;
+    right: -15%;
+  }
 
   .content {
     flex-direction: column;
@@ -388,7 +412,7 @@
     position: absolute;
     top: 15px;
     left: 15px;
-    padding: 8px 16px;
+    padding: 8px 20px;
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 8px;
@@ -400,7 +424,7 @@
 
   .back-btn:hover { background: rgba(255,255,255,0.2); }
 
-  /* Ticket Section */
+  /* 🎟 Ticket Section */
   .ticket-info {
     position: relative;
     margin-top: 60px;
@@ -426,7 +450,7 @@
     );
   }
 
-  /* Payment Section */
+  /* 💳 Payment Section */
   .payment-form {
     position: relative;
     margin-top: 45px;
@@ -437,7 +461,7 @@
     content: "";
     display: block;
     height: 2px;
-    margin: 105px 0 10px 0; 
+    margin: 105px 0 8px 0; 
     background: linear-gradient(
       90deg,
       rgba(255,255,255,0) 0%,
@@ -448,7 +472,7 @@
     );
   }
 
-  /* Cart Section */
+  /* 🛒 Cart Section */
   .cart-box {
     padding: 0;
     text-align: center;
