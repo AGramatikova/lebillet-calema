@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Calema | LeBillet</title>
 <style>
-  /* Reset */
   * {
     box-sizing: border-box;
     margin: 0;
@@ -45,7 +44,6 @@
 
   #main-content button:hover { background: #4ec556; }
 
-  /* ✅ Centered outlined modal-style section */
   #calema-section {
     display: none;
     position: fixed;
@@ -344,6 +342,10 @@
     flex: 1 1 calc(50% - 10px);
   }
   
+  .payment-form .form-group.text-center {
+    margin-top: 5px;
+    margin-bottom: 30px;
+  }
 
   @media (max-width: 768px) {
   #calema-section {
@@ -358,9 +360,8 @@
     overflow-x: hidden;
   }
 
-  /* 💠 Blobs are back! */
   .blob1, .blob2 {
-    display: block; /* ✅ visible again */
+    display: block;
     position: absolute;
     border-radius: 50%;
     filter: blur(90px);
@@ -424,7 +425,7 @@
 
   .back-btn:hover { background: rgba(255,255,255,0.2); }
 
-  /* 🎟 Ticket Section */
+  /* Ticket Section */
   .ticket-info {
     position: relative;
     margin-top: 60px;
@@ -450,7 +451,7 @@
     );
   }
 
-  /* 💳 Payment Section */
+  /* Payment Section */
   .payment-form {
     position: relative;
     margin-top: 45px;
@@ -472,7 +473,7 @@
     );
   }
 
-  /* 🛒 Cart Section */
+  /* Cart Section */
   .cart-box {
     padding: 0;
     text-align: center;
