@@ -5,19 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Calema | LeBillet</title>
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden !important;
-    overscroll-behavior-x: none;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
     background-color: #04153b;
     color: white;
     font-family: 'Poppins', sans-serif;
@@ -32,207 +25,137 @@
   }
 
   #main-content button {
-    background: #64d869;
-    border: none;
-    color: #fff;
-    font-size: 1.2rem;
-    padding: 15px 40px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
+    background: #64d869; border: none; color: #fff;
+    font-size: 1.2rem; padding: 15px 40px; border-radius: 8px;
+    cursor: pointer; transition: background 0.3s;
   }
-
   #main-content button:hover { background: #4ec556; }
 
+  /* SECTION (desktop default modal) */
   #calema-section {
     display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    position: fixed; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 85%;
-    height: 85vh;
-    border-radius: 16px;
-    background: #04153b;
+    width: 85%; height: 85vh;
+    border-radius: 16px; background: #04153b;
     box-shadow: 0 0 40px rgba(0,0,0,0.5);
-    z-index: 1000;
-    overflow-y: auto;
-    overflow-x: hidden;
+    z-index: 1000; overflow-y: auto;
+    transition: transform 0.4s ease;
   }
 
-  #calema-section .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.55;
-    z-index: 0;
-  }
+  /* Decorative blobs */
+  .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.55; z-index: 0; }
+  .blob1 { width: 300px; height: 400px; background: #0b5cff; top: 25%; left: -5%; }
+  .blob2 { width: 400px; height: 400px; background: #0099ff; bottom: -10%; right: -5%; }
+  #calema-section *:not(.blob) { position: relative; z-index: 2; }
 
-  .blob1 {
-    width: 300px;
-    height: 400px;
-    background: #0b5cff;
-    top: 25%;
-    left: -5%;
-  }
-
-  .blob2 {
-    width: 400px;
-    height: 400px;
-    background: #0099ff;
-    bottom: -10%;
-    right: -5%;
-  }
-
-  #calema-section *:not(.blob) {
-    position: relative;
-    z-index: 2;
-  }
-
+  /* Title Bar */
   .title-bar {
-    width: 80%;
-    height: 100px;
-    background: #dcdcdc;
+    width: 80%; height: 100px; background: #dcdcdc;
     margin: -23px auto 0 auto;
     clip-path: polygon(0 0, 100% 0, 100% 22%, 60% 85%, 40% 85%, 0 22%);
+    display: flex; justify-content: center; align-items: center;
+  }
+  .title-bar h2 { color: #04153b; font-size: 2rem; font-weight: 700; letter-spacing: 2px; }
+
+  .content {
+    display: flex; justify-content: space-between; flex-wrap: wrap;
+    gap: 30px; padding: 40px; align-items: flex-start;
+  }
+
+  /* Left pane */
+  .left-pane {
+    flex: 1; min-width: 350px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+
+  /* Toolbar (Voltar + Promo) */
+  .left-toolbar {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px; /* spacing between buttons and ticket box */
+    width: 100%;
   }
 
-  .title-bar h2 {
-    color: #04153b;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin: 0;
-  }
-
-  .back-btn {
-    position: absolute;
-    top: 25px;
-    left: 25px;
+  .back-btn-global {
+    position: static;
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 8px;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 14px;
     cursor: pointer;
-    z-index: 2;
     transition: 0.3s;
   }
+  .back-btn-global:hover { background: rgba(255,255,255,0.2); }
 
-  .back-btn:hover { background: rgba(255,255,255,0.2); }
-
-  .content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 40px;
-    align-items: flex-start;
+  .promo-btn {
+    background: #e0e0e0; color: #000; border: none; padding: 10px 20px;
+    border-radius: 6px; cursor: pointer; font-weight: 600; transition: background 0.3s;
   }
+  .promo-btn:hover { background: #c3c3c3; }
 
-  .ticket-info {
-    margin-top: 20px;
-    flex: 1;
-    min-width: 350px;
+  /* Coupon */
+  .coupon-section {
+    display: none; margin: 5px 0 15px 0; gap: 10px; justify-content: flex-start;
   }
+  .coupon-section input { flex: 1; padding: 10px; border-radius: 6px; border: none; font-size: 0.9rem; }
+  .coupon-section button {
+    background: #a0b0c0; border: none; padding: 10px 15px; border-radius: 6px;
+    color: #333333; font-weight: 600; cursor: pointer; transition: background 0.3s;
+  }
+  .coupon-section button:hover { background: #64d869; }
 
+  /* Tickets */
   .ticket-box {
     background: rgba(255,255,255,0.08);
     border-radius: 12px;
     padding: 15px 20px;
+    margin-top: 25px; /* added top margin */
     margin-bottom: 15px;
   }
 
-  .ticket-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 22px;
-  }
-
-  .price-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .ticket-row { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
+  .price-row { display: flex; align-items: center; gap: 16px; }
 
   .quantity-select {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 7px 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #000;
-    width: 60px;
-    cursor: pointer;
+    background: transparent !important; color: white !important;
+    border: 1px solid rgba(255,255,255,0.5); border-radius: 6px;
+    padding: 7px 8px; font-size: 1rem; font-weight: 600; width: 60px; cursor: pointer;
+    -webkit-appearance: none !important; -moz-appearance: none !important; appearance: none !important;
+    backdrop-filter: blur(10px);
   }
 
-  .promo-btn {
-    display: block;
-    margin-top: 20px;
-    background: #e0e0e0;
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s;
-  }
-
-  .promo-btn:hover { background: #c3c3c3; }
-
-  .coupon-section {
-    display: none;
-    margin-top: 20px;
-    gap: 10px;
-  }
-
-  .coupon-section input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    font-size: 0.9rem;
-  }
-
-  .coupon-section button {
-    background: #a0b0c0;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    color: #333333;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  .coupon-section button:hover { background: #64d869; }
-
+  /* Cart */
   .cart-box {
-    background: transparent;
-    border-left: 1px solid rgba(255,255,255,0.3);
-    padding: 0 0 0 40px;
-    flex: 1;
-    min-width: 350px;
+    background: transparent; border-left: 1px solid rgba(255,255,255,0.3);
+    padding: 0 0 0 40px; flex: 1; min-width: 350px;
   }
 
-  .cart-box h3 {
-    margin-bottom: 45px;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 550;
-    letter-spacing: 2px;
+  .cart-title { display: flex; align-items: center; gap: 8px; margin-bottom: 35px; }
+  .cart-icon {
+    width: 22px; /* increased size */
+    height: 24px; /* increased size */
+    fill: #fff;
+    opacity: 0.9;
+    margin-top: 8px;
+    margin-left: 0;
   }
+
+  .cart-item { width: 100%; }
 
   .cart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 14px; /* added more space below "Calema" */
+  }
+
+  .cart-header p {
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0;
   }
 
   .remove-btn {
@@ -242,272 +165,253 @@
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.2s ease;
     line-height: 1;
-    display: none;
+    transition: color 0.2s ease;
+    display: inline-block !important;
   }
-
   .remove-btn:hover { color: #ff1a1a; }
 
+  /* Updated cart item spacing + grey tone */
   .cart-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
+    margin: 10px 0 20px 0; /* slightly more space between 0x Standard Individual and the small text */
     gap: 10px;
   }
 
-  hr {
-    border: 0.5px solid rgba(255,255,255,0.2);
-    margin: 40px 0;
+  .cart-box small {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #bfbfbf; /* soft grey tone like the old version */
+    opacity: 0.7;   /* matches subtle look */
+    text-align: left;
   }
 
-  .costs p, .total p {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
+
+
+  .cart-item small {
+    display: block;
+    margin-top: 10px; /* added extra space before small text */
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-align: left;
   }
 
-  .total {
-    font-size: 1.2rem;
-    margin-top: 70px;
-  }
+  hr { border: 0.5px solid rgba(255,255,255,0.2); margin: 40px 0; }
+  .costs p, .total p { display: flex; justify-content: space-between; margin: 5px 0; }
+  .total { font-size: 1.2rem; margin-top: 70px; }
 
   .continue-btn {
-    background: #4ec556;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    width: 65%;
-    padding: 15px;
-    margin: 55px auto 0 auto;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s;
     display: block;
+    background: #4ec556; color: #fff; border: none; border-radius: 8px; width: 65%;
+    padding: 15px; margin: 55px auto 0 auto; cursor: pointer; font-size: 1rem; transition: background 0.3s;
     text-align: center;
   }
-
   .continue-btn:hover { background: #62dd68; }
 
-  /* Payment Section */
+  /* Payment form */
   .payment-form {
-    margin-top: 0;
-    flex: 1;
-    min-width: 350px;
     display: none;
-    color: #fff;
-    padding: 40px 60px;
+    color: #fff; padding: 15px 20px;
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.25s ease-in-out;
+    background: none;
+    border-radius: 12px;
   }
-
-  .payment-form label {
-    display: block;
-    margin-bottom: 6px;
-    color: #fff;
-  }
+  .payment-form.active { display: block !important; opacity: 1; transform: translateY(0); }
 
   .payment-form input, .payment-form select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    margin-bottom: 10px;
-    font-size: 1rem;
+    width: 100%; padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.5);
+    background: transparent; color: #fff; margin-bottom: 12px; font-size: 1rem;
   }
 
-  .payment-form p {
-    text-align: center;
-    opacity: 0.8;
-    font-size: 0.9rem;
-  }
-
-  .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    flex-direction: column;
-  }
-
-  .form-group {
-    flex: 1 1 100%;
-  }
-
-  .form-row.last-row {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  .form-row.last-row .form-group {
-    flex: 1 1 calc(50% - 10px);
-  }
-  
-  .payment-form .form-group.text-center {
-    margin-top: 5px;
-    margin-bottom: 30px;
-  }
-  .cart-box small {
-    opacity: 0.55;
-  }
-
-  @media (max-width: 768px) {
-  #calema-section {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    box-shadow: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .blob1, .blob2 {
-    display: block;
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.45;
-    z-index: 0;
-  }
-
-  .blob1 {
-    width: 220px;
-    height: 220px;
-    background: #0b5cff;
-    top: 15%;
-    left: -10%;
-  }
-
-  .blob2 {
-    width: 260px;
-    height: 260px;
-    background: #0099ff;
-    bottom: -8%;
-    right: -15%;
-  }
-
-  .content {
-    flex-direction: column;
-    padding: 20px;
-    gap: 60px;
-  }
-
-  .title-bar {
-    width: 100%;
-    height: 85px;
-    background: linear-gradient(to bottom, #dcdcdc 80%, #bfbfbf 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 25%, 65% 90%, 35% 90%, 0 25%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0;
-  }
-
-  .title-bar h2 {
-    font-size: 1.5rem;
-    color: #04153b;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-
-  .back-btn {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    padding: 8px 20px;
+  /* Voltar inside payment form */
+  #backBtnPayment {
+    align-self: flex-start;
+    margin-bottom: 15px;
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: 8px;
     color: white;
+    padding: 8px 14px;
     cursor: pointer;
-    z-index: 150;
     transition: 0.3s;
   }
+  #backBtnPayment:hover { background: rgba(255,255,255,0.2); }
 
-  .back-btn:hover { background: rgba(255,255,255,0.2); }
+  /* Hide left-side continue button (payment) on desktop */
+  .payment-actions { display: none; }
 
-  /* Ticket Section */
-  .ticket-info {
-    position: relative;
-    margin-top: 60px;
-    margin-bottom: 70px;
+  /* Keep it visible only on mobile */
+  @media (max-width: 768px) {
+    #calema-section {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      height: auto; max-height: 90vh;
+      background: #04153b;
+      border-top-left-radius: 20px; border-top-right-radius: 20px;
+      box-shadow: 0 -4px 25px rgba(0,0,0,0.5);
+      transform: translateY(100%); transition: transform 0.4s ease-out;
+      overflow-y: auto; z-index: 1000; padding-bottom: 20px;
+    }
+    #calema-section.active { transform: translateY(0); }
+
+    .title-bar { width: 100%; height: 85px; }
+    .title-bar h2 { font-size: 1.5rem; }
+
+    .content { flex-direction: column; padding: 20px; gap: 16px; }
+
+    .cart-box {
+      display: none;
+      padding: 0;
+      border: none;
+      margin-top: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .cart-box.visible {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .continue-btn {
+      position: sticky;
+      bottom: 10px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      margin: 24px 0 0 0;
+    }
+
+    .left-pane { width: 100%; }
+    .payment-form { display: none; width: 100%; padding: 16px; }
+    .payment-form.active { display: block !important; }
+
+    .payment-actions {
+      display: flex;
+      justify-content: center !important;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .pay-continue-btn {
+      background: #64d869;
+      border: none;
+      color: #04153b;
+      font-weight: 700;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .pay-continue-btn:hover { background: #62dd68; }
+
+    /* extra spacing for mobile */
+    .left-toolbar {
+      margin-bottom: 30px;
+    }
+    .ticket-box {
+      margin-top: 30px;
+    }
   }
 
-  .ticket-box {
-    margin-bottom: 60px; 
-  }
-
-  .ticket-info::after {
-    content: "";
-    display: block;
-    height: 2px;
-    margin: 140px 0 8px 0; 
-    background: linear-gradient(
-      90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.45) 20%,
-      rgba(255,255,255,0.75) 50%,
-      rgba(255,255,255,0.45) 80%,
-      rgba(255,255,255,0) 100%
-    );
-  }
-
-  /* Payment Section */
-  .payment-form {
-    position: relative;
-    margin-top: 45px;
-    margin-bottom: 70px;
-  }
-
-  .payment-form::after {
-    content: "";
-    display: block;
-    height: 2px;
-    margin: 115px 0 8px 0; 
-    background: linear-gradient(
-      90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.45) 20%,
-      rgba(255,255,255,0.75) 50%,
-      rgba(255,255,255,0.45) 80%,
-      rgba(255,255,255,0) 100%
-    );
-  }
-
-  /* Cart Section */
-  .cart-box {
-    padding: 0;
-    text-align: center;
-    border: none;
-  }
-
-  .continue-btn, .promo-btn {
-    width: 100%;
+  /* Unified transparent inputs + selects */
+  select,
+  .quantity-select,
+  .phone-row select {
+    background: transparent !important;
+    color: white !important;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+    padding: 10px;
     font-size: 1rem;
-    padding: 14px;
-    margin-bottom: 30px;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
   }
 
-  .ticket-info, .cart-box, .payment-form {
-    min-width: 100%;
-    border: none;
-    padding: 0;
+  select option,
+  .quantity-select option,
+  .phone-row select option {
+    background: #04153b !important;
+    color: white !important;
   }
 
-  .cart-box small {
-    display: block;
-    text-align: left;
-    opacity: 0.55;
+  select:focus,
+  .quantity-select:focus,
+  .phone-row select:focus {
+    outline: none;
+    border-color: #64d869;
+    box-shadow: 0 0 5px rgba(100,216,105,0.4);
   }
-}
 
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    transition: all 0.3s ease;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+  }
 
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus {
+    outline: none;
+    border-color: #64d869;
+    box-shadow: 0 0 5px rgba(100,216,105,0.4);
+  }
+
+  ::placeholder { color: white !important; opacity: 1 !important; }
+  ::-webkit-input-placeholder { color: white !important; }
+  :-ms-input-placeholder { color: white !important; }
+  ::-moz-placeholder { color: white !important; }
+  :-moz-placeholder { color: white !important; }
+
+  select,
+  .quantity-select,
+  .phone-row select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    position: relative;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 6px;
+    padding: 10px 36px 10px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23ffffff' height='10' width='10' xmlns='http://www.w3.org/2000/svg'><path d='M0 0 L5 6 L10 0 Z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+  }
+
+  .quantity-select {
+    padding-right: 32px;
+    background-position: right 8px center;
+    background-size: 10px;
+  }
+
+  select:focus {
+    border-color: #64d869;
+    box-shadow: 0 0 5px rgba(100,216,105,0.4);
+    outline: none;
+  }
 </style>
+
 </head>
 <body>
-
   <div id="main-content">
     <h2>Evento: Calema - Londres</h2>
     <button onclick="openCalemaSection()">Comprar</button>
@@ -515,63 +419,83 @@
 
   <section id="calema-section">
     <div class="title-bar"><h2>CALEMA</h2></div>
-    <button class="back-btn" id="backBtn">← Voltar</button>
 
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
 
     <div class="content">
-      <div class="ticket-info" id="checkout-area">
-        <div class="ticket-box">
-          <h3>STANDART</h3>
-          <div class="ticket-row">
-            <p>Individual <span style="opacity:0.7;">Lote 1</span></p>
-            <div class="price-row">
-              <span>£ 48,00</span>
-              <select id="ticketQty" class="quantity-select">
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+      <div class="left-pane">
+        <div class="ticket-info" id="ticketInfo">
+          <div class="left-toolbar">
+            <button class="back-btn-global" id="backBtn">← Voltar</button>
+            <button class="promo-btn" id="promoBtn">Código Promocional</button>
+          </div>
+
+          <div class="coupon-section" id="couponSection">
+            <input type="text" placeholder="código" id="couponInput">
+            <button id="applyCoupon">Aplicar</button>
+          </div>
+
+          <div class="ticket-box" id="checkout-area">
+            <h3>STANDART</h3>
+            <div class="ticket-row">
+              <p>Individual <span style="opacity:0.7;">Lote 1</span></p>
+              <div class="price-row">
+                <span>£ 48,00</span>
+                <select id="ticketQty" class="quantity-select">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option><option value="2">2</option>
+                  <option value="3">3</option><option value="4">4</option>
+                  <option value="5">5</option><option value="6">6</option>
+                  <option value="7">7</option><option value="8">8</option>
+                  <option value="9">9</option><option value="10">10</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="payment-form" id="paymentForm">
+          <button class="back-btn-global" id="backBtnPayment">← Voltar</button>
+          <div class="form-row">
+            <div class="form-group"><input type="text" placeholder="Nome"></div>
+            <div class="form-group"><input type="text" placeholder="Apelido"></div>
+            <div class="form-group"><input type="email" placeholder="E-mail"></div>
+            <div class="form-group phone-row">
+              <select>
+                <option>POR +351</option><option>BRA +55</option>
+                <option>ITA +39</option><option>ESP +34</option>
+                <option>SUI +41</option><option>FRA +33</option>
+                <option>IRL +353</option><option>GBR +44</option>
+                <option>BEL +32</option><option>GER +49</option>
+                <option>NED +31</option><option>USA +1</option>
+              </select>
+              <input type="tel" placeholder="Número do Telemóvel">
+            </div>
+            <p>Os bilhetes serão enviados por e-mail e WhatsApp.</p>
+          </div>
+          <div class="form-row last-row">
+            <div class="form-group">
+              <select>
+                <option>Portugal</option><option>Espanha</option>
+                <option>Brasil</option><option>Reino Unido</option>
               </select>
             </div>
-          </div>          
-        </div>
-
-        <button class="promo-btn" id="promoBtn">Código Promocional</button>
-        <div class="coupon-section" id="couponSection">
-          <input type="text" placeholder="coupom" id="couponInput">
-          <button id="applyCoupon">Aplicar</button>
-        </div>
-      </div>
-
-      <div class="payment-form hidden" id="paymentForm">
-        <div class="form-row">
-          <div class="form-group"><label>Nome</label><input type="text" placeholder="Nome"></div>
-          <div class="form-group"><label>Apelido</label><input type="text" placeholder="Apelido"></div>
-          <div class="form-group"><label>E-mail</label><input type="email" placeholder="E-mail"></div>
-          <div class="form-group"><label>Confirmar e-mail</label><input type="email" placeholder="Email de confirmação"></div>
-          <div class="form-group"><label>Número do Telemóvel</label><input type="tel" placeholder="Número do Telemóvel"></div>
-          <div class="form-group"><label>Confirmar número do telemóvel</label><input type="tel" placeholder="Confirmar número do telemóvel"></div>
-          <div class="form-group text-center"><p>Os bilhetes serão enviados por e-mail e whatsapp.</p></div>
-        </div>
-        <div class="form-row last-row">
-          <div class="form-group"><label>País</label>
-            <select><option>Portugal</option><option>Espanha</option><option>Brasil</option><option>Reino Unido</option></select>
+            <div class="form-group"><input type="text" placeholder="Concelho"></div>
           </div>
-          <div class="form-group"><label>Concelho</label><input type="text" placeholder="Concelho"></div>
+          <div class="payment-actions">
+            <button class="pay-continue-btn" id="payContinueBtn">Continuar</button>
+          </div>
         </div>
       </div>
 
-      <div class="cart-box">
-        <h3>CARRINHO DE COMPRAS</h3>
+      <div class="cart-box" id="cartBox">
+        <div class="cart-title">
+          <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.42 13l.75-2h8.11c.74 0 1.39-.4 1.73-1.01l3.57-6.46A1 1 0 0 0 20.59 2H5.21L4.27 0H1v2h2l3.6 7.5-1.35 2.45C4.52 13.4 5.48 15 7 15h12v-2H7.42z"/>
+          </svg>
+        </div>
+
         <div class="cart-item">
           <div class="cart-header">
             <p><strong>Calema</strong></p>
@@ -582,7 +506,7 @@
             <span id="cartSubtotal">£ 0,00</span>
           </div>
           <small>Valor total dos bilhetes <em>IVA incluído</em></small>
-        </div>          
+        </div>
         <hr>
         <div class="costs">
           <p>Custos de operação <span id="operCost">£ 0,00</span></p>
@@ -597,65 +521,107 @@
   </section>
 
 <script>
-const calemaSection = document.getElementById("calema-section");
-const backBtn = document.getElementById("backBtn");
-const qtySelect = document.getElementById("ticketQty");
-const removeBtn = document.getElementById("removeBtn");
-const promoBtn = document.getElementById("promoBtn");
-const couponSection = document.getElementById("couponSection");
-const checkoutArea = document.getElementById("checkout-area");
-const paymentForm = document.getElementById("paymentForm");
+const calemaSection=document.getElementById("calema-section");
+const backBtn=document.getElementById("backBtn");
+const qtySelect=document.getElementById("ticketQty");
+const removeBtn=document.getElementById("removeBtn");
+const promoBtn=document.getElementById("promoBtn");
+const couponSection=document.getElementById("couponSection");
+const ticketInfo=document.getElementById("ticketInfo");
+const cartBox=document.getElementById("cartBox");
+const paymentForm=document.getElementById("paymentForm");
+const payContinueBtn=document.getElementById("payContinueBtn");
+const backBtnPayment=document.getElementById("backBtnPayment");
+const ticketPrice=48.00,operCost=2.88,vatCost=0.66;
 
-const ticketPrice = 48.00, operCost = 2.88, vatCost = 0.66;
+const isMobile=()=>window.matchMedia("(max-width:768px)").matches;
 
-function openCalemaSection() {
-  calemaSection.style.display = "block";
+function openCalemaSection(){
+  calemaSection.style.display="block";
+  requestAnimationFrame(()=>calemaSection.classList.add("active"));
 }
 
-backBtn.onclick = () => {
-  if (paymentForm.style.display === "block") {
-    paymentForm.style.display = "none";
-    checkoutArea.style.display = "block";
-  } else {
-    calemaSection.style.display = "none";
+qtySelect.addEventListener("change",()=>{
+  const qty=parseInt(qtySelect.value);
+  updateCart(qty);
+  if(isMobile()){
+    if(qty>0){cartBox.classList.add("visible");cartBox.style.display="block";}
+    else{cartBox.classList.remove("visible");cartBox.style.display="none";}
+  }
+});
+
+function updateCart(qty){
+  const subtotal=qty*ticketPrice;
+  const oper=qty>0?operCost:0;
+  const vat=qty>0?vatCost:0;
+  const total=subtotal+oper+vat;
+  document.getElementById("cartSubtotal").textContent=`£ ${subtotal.toFixed(2)}`;
+  document.getElementById("operCost").textContent=`£ ${oper.toFixed(2)}`;
+  document.getElementById("vatCost").textContent=`£ ${vat.toFixed(2)}`;
+  document.getElementById("totalPrice").textContent=`£ ${total.toFixed(2)}`;
+  document.getElementById("cartDetails").textContent=`${qty}x Standard Individual`;
+  removeBtn.style.display=qty>0?"inline-block":"none";
+}
+
+removeBtn.onclick=()=>{qtySelect.value="0";updateCart(0);if(isMobile()){cartBox.classList.remove("visible");cartBox.style.display="none";}};
+
+promoBtn.onclick=()=>{promoBtn.style.display="none";couponSection.style.display="flex";couponSection.scrollIntoView({behavior:"smooth"});};
+
+document.getElementById("continueBtn").onclick=()=>{
+  if(isMobile()){
+    ticketInfo.style.display="none";cartBox.style.display="none";
+    paymentForm.style.display="block";requestAnimationFrame(()=>paymentForm.classList.add("active"));
+    calemaSection.scrollTo({top:0,behavior:"smooth"});
+  }else{
+    ticketInfo.style.display="none";
+    cartBox.style.removeProperty("display");
+    paymentForm.style.display="block";
+    requestAnimationFrame(()=>paymentForm.classList.add("active"));
   }
 };
 
-qtySelect.addEventListener("change", () => {
-  const qty = parseInt(qtySelect.value);
-  updateCart(qty);
-});
-
-function updateCart(qty) {
-  const subtotal = qty * ticketPrice;
-  const oper = qty > 0 ? operCost : 0;
-  const vat = qty > 0 ? vatCost : 0;
-  const total = subtotal + oper + vat;
-
-  document.getElementById("cartSubtotal").textContent = `£ ${subtotal.toFixed(2)}`;
-  document.getElementById("operCost").textContent = `£ ${oper.toFixed(2)}`;
-  document.getElementById("vatCost").textContent = `£ ${vat.toFixed(2)}`;
-  document.getElementById("totalPrice").textContent = `£ ${total.toFixed(2)}`;
-  document.getElementById("cartDetails").textContent = `${qty}x Standard Individual`;
-
-  removeBtn.style.display = qty > 0 ? "inline-block" : "none";
-}
-
-removeBtn.onclick = () => {
-  qtySelect.value = "0";
-  updateCart(0);
+backBtn.onclick=()=>{
+  if(paymentForm.classList.contains("active")){
+    paymentForm.classList.remove("active");
+    setTimeout(()=>{
+      paymentForm.style.display="none";ticketInfo.style.display="block";
+      if(isMobile()){
+        const qty=parseInt(qtySelect.value);
+        if(qty>0){cartBox.classList.add("visible");cartBox.style.display="block";}
+        else{cartBox.classList.remove("visible");cartBox.style.display="none";}
+        calemaSection.scrollTo({top:0,behavior:"smooth"});
+      }else{cartBox.style.removeProperty("display");}
+    },150);
+  }else{
+    calemaSection.classList.remove("active");
+    setTimeout(()=>calemaSection.style.display="none",350);
+  }
 };
 
-promoBtn.onclick = () => {
-  promoBtn.style.display = "none";
-  couponSection.style.display = "flex";
+backBtnPayment.onclick=()=>{
+  paymentForm.classList.remove("active");
+  setTimeout(()=>{
+    paymentForm.style.display="none";
+    ticketInfo.style.display="block";
+    if(isMobile()){
+      const qty=parseInt(qtySelect.value);
+      if(qty>0){
+        cartBox.classList.add("visible");
+        cartBox.style.display="block";
+      } else {
+        cartBox.classList.remove("visible");
+        cartBox.style.display="none";
+      }
+      calemaSection.scrollTo({top:0,behavior:"smooth"});
+    } else {
+      cartBox.style.removeProperty("display");
+    }
+  },150);
 };
 
-document.getElementById("continueBtn").onclick = () => {
-  checkoutArea.style.display = "none";
-  paymentForm.style.display = "block";
-  paymentForm.style.opacity = "1";
-};
+payContinueBtn.onclick=()=>{alert("Pagamento: continuar para o checkout/confirmar.");};
+
+window.addEventListener("resize",()=>{if(!isMobile()&&paymentForm.classList.contains("active")){cartBox.style.removeProperty("display");}});
 </script>
 </body>
 </html>
